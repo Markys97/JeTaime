@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Une mini surprise ✨</title>
+    <meta
+      name="description"
+      content="Une mini page… juste pour te poser une question."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="bg">
+      <canvas id="hearts" aria-hidden="true"></canvas>
+      <div class="noise" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+    </div>
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="brand__text">mini surprise</span>
+      </div>
+      <button
+        id="muteBtn"
+        class="chip"
+        type="button"
+        aria-label="Réduire les animations"
+      >
+        <span class="chip__icon" aria-hidden="true">✨</span>
+        <span class="chip__text">Animations</span>
+      </button>
+    </header>
+
+    <main class="wrap">
+      <!-- HERO -->
+      <section id="hero" class="screen active">
+        <div class="card glass">
+          <div class="badge">
+            <span class="badge__icon" aria-hidden="true">💌</span>
+            <span>juste 30 secondes</span>
+          </div>
+
+          <h1 class="h1">
+            Hey toi <span class="spark" aria-hidden="true">✦</span>
+          </h1>
+          <p class="p lead">
+            J’ai fait une mini page… juste pour te poser une question.
+          </p>
+
+          <div class="actions">
+            <button class="btn primary" id="openBtn" type="button">
+              Ouvrir la surprise
+              <span class="btn__icon" aria-hidden="true">→</span>
+            </button>
+            <p class="hint">(promis, c’est rapide)</p>
+          </div>
+        </div>
+
+        <div class="scrollhint" aria-hidden="true">
+          <span class="scrollhint__line"></span>
+          <span class="scrollhint__text">glisse</span>
+        </div>
+      </section>
+
+      <!-- LETTER -->
+      <section id="letter" class="screen">
+        <div class="card glass">
+          <h2 class="h2">Une petite attention</h2>
+          <p class="p subtle">Tape sur l’enveloppe.</p>
+
+          <div class="envelopeWrap" role="group" aria-label="Enveloppe">
+            <button
+              id="envelope"
+              class="envelope"
+              type="button"
+              aria-label="Ouvrir l'enveloppe"
+            >
+              <span class="env env--back" aria-hidden="true"></span>
+              <span class="env env--letter" aria-hidden="true">
+                <span class="letterContent">
+                  <span class="line"
+                    >Je voulais faire mieux qu’un “salut ça va”.</span
+                  >
+                  <span class="line"
+                    >Alors voilà : une petite attention simple.</span
+                  >
+                  <span class="line">Et une question.</span>
+                </span>
+              </span>
+              <span class="env env--front" aria-hidden="true"></span>
+              <span class="env env--seal" aria-hidden="true">♥</span>
+            </button>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" id="listenBtn" type="button" disabled>
+              Ok, je t’écoute
+              <span class="btn__icon" aria-hidden="true">→</span>
+            </button>
+            <button class="btn ghost" data-go="hero" type="button">
+              Retour
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIBE -->
+      <section id="vibe" class="screen">
+        <div class="card glass">
+          <h2 class="h2">Si on se voyait…</h2>
+          <p class="p lead">Tu choisirais quoi ?</p>
+
+          <div class="choices" role="radiogroup" aria-label="Choix de vibe">
+            <button
+              class="choice"
+              type="button"
+              data-vibe="cafe"
+              aria-pressed="false"
+            >
+              <span class="choice__icon" aria-hidden="true">☕</span>
+              <span class="choice__title">Café</span>
+              <span class="choice__sub">simple & vrai</span>
+            </button>
+
+            <button
+              class="choice"
+              type="button"
+              data-vibe="walk"
+              aria-pressed="false"
+            >
+              <span class="choice__icon" aria-hidden="true">🌙</span>
+              <span class="choice__title">Balade</span>
+              <span class="choice__sub">vibe de nuit</span>
+            </button>
+
+            <button
+              class="choice"
+              type="button"
+              data-vibe="dessert"
+              aria-pressed="false"
+            >
+              <span class="choice__icon" aria-hidden="true">🍰</span>
+              <span class="choice__title">Dessert</span>
+              <span class="choice__sub">l’option sourire</span>
+            </button>
+          </div>
+
+          <div class="reply" id="vibeReply" aria-live="polite">
+            <p class="p subtle">
+              Choisis une option pour voir la petite réponse 🙂
+            </p>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" id="chosenBtn" type="button" disabled>
+              J’ai choisi
+              <span class="btn__icon" aria-hidden="true">→</span>
+            </button>
+            <button class="btn ghost" data-go="letter" type="button">
+              Retour
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- INVITE -->
+      <section id="invite" class="screen">
+        <div class="card glass">
+          <h2 class="h2">Je te propose un moment simple</h2>
+
+          <div class="inviteBox">
+            <p class="p lead" id="inviteLine1">
+              Cette semaine, on fait: <strong>quelque chose de cool</strong>.
+            </p>
+            <p class="p" id="inviteLine2">
+              30–60 minutes. Juste nous. Sans prise de tête.
+            </p>
+          </div>
+
+          <div
+            class="timeChoices"
+            role="radiogroup"
+            aria-label="Choix du moment"
+          >
+            <button
+              class="pill"
+              type="button"
+              data-time="thisweek"
+              aria-pressed="false"
+            >
+              Cette semaine
+            </button>
+            <button
+              class="pill"
+              type="button"
+              data-time="weekend"
+              aria-pressed="false"
+            >
+              Week-end
+            </button>
+          </div>
+
+          <p class="p subtle noPressure">
+            Et si t’es pas dans le mood en ce moment : aucun souci 🙂
+          </p>
+
+          <div class="actions">
+            <button class="btn primary" id="goCtaBtn" type="button" disabled>
+              Continuer
+              <span class="btn__icon" aria-hidden="true">→</span>
+            </button>
+            <button class="btn ghost" data-go="vibe" type="button">
+              Retour
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section id="cta" class="screen">
+        <div class="card glass">
+          <h2 class="h2">Tu me dis quand t’es dispo ?</h2>
+          <p class="p lead" id="ctaSummary">
+            Je te laisse choisir. Zéro pression.
+          </p>
+
+          <div class="actions">
+            <a
+              class="btn primary"
+              id="whatsBtn"
+              href="#"
+              target="_blank"
+              rel="noopener"
+            >
+              Répondre (WhatsApp)
+              <span class="btn__icon" aria-hidden="true">↗</span>
+            </a>
+            <button class="btn ghost" id="notNowBtn" type="button">
+              Pas maintenant
+            </button>
+          </div>
+
+          <div class="thanks" id="thanks" hidden>
+            <p class="p lead">Merci d’avoir ouvert ✨</p>
+            <p class="p subtle">Bonne journée à toi 🙂</p>
+            <button class="btn ghost" data-go="hero" type="button">
+              Revenir au début
+            </button>
+          </div>
+
+          <p class="footerNote">— une vibe, un moment, c’est tout.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
