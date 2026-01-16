@@ -2,266 +2,719 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Une mini surprise ✨</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Pour Lise — 23 ans 💗</title>
     <meta
       name="description"
-      content="Une mini page… juste pour te poser une question."
+      content="Une lettre élégante, rose, avec une surprise de cœurs au clic."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      :root {
+        --pink: #ff2f92;
+        --pink2: #ff7ac3;
+        --rose: #ffd0e8;
+        --ink: #120513;
+        --paper: #fff6fb;
+        --paper2: #ffe8f4;
+        --muted: rgba(18, 5, 19, 0.7);
+        --muted2: rgba(18, 5, 19, 0.55);
+        --shadow: 0 26px 80px rgba(18, 5, 19, 0.18);
+        --shadow2: 0 14px 35px rgba(18, 5, 19, 0.12);
+        --ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+        --radius: 22px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        background: radial-gradient(
+            900px 600px at 15% 10%,
+            rgba(255, 47, 146, 0.22),
+            transparent 55%
+          ),
+          radial-gradient(
+            800px 560px at 85% 25%,
+            rgba(255, 122, 195, 0.18),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 700px at 50% 95%,
+            rgba(255, 208, 232, 0.75),
+            transparent 55%
+          ),
+          linear-gradient(180deg, #fff7fc, #ffeaf6 55%, #fff6fb);
+        overflow-x: hidden;
+      }
+
+      /* Soft animated ribbons (not hearts) */
+      .ribbons {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        filter: blur(22px);
+        opacity: 0.9;
+      }
+      .ribbon {
+        position: absolute;
+        width: 520px;
+        height: 220px;
+        border-radius: 999px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 47, 146, 0.55),
+          rgba(255, 122, 195, 0.18),
+          transparent 70%
+        );
+        transform: rotate(12deg);
+        animation: drift 12s var(--ease) infinite;
+        mix-blend-mode: multiply;
+      }
+      .ribbon.r2 {
+        width: 560px;
+        height: 260px;
+        left: 60%;
+        top: 15%;
+        transform: rotate(-18deg);
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 122, 195, 0.5),
+          rgba(255, 208, 232, 0.7),
+          transparent 70%
+        );
+        animation-duration: 14s;
+        animation-delay: -4s;
+      }
+      .ribbon.r3 {
+        width: 620px;
+        height: 280px;
+        left: 10%;
+        top: 70%;
+        transform: rotate(24deg);
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 47, 146, 0.35),
+          rgba(255, 208, 232, 0.85),
+          transparent 72%
+        );
+        animation-duration: 16s;
+        animation-delay: -7s;
+      }
+      @keyframes drift {
+        0%,
+        100% {
+          translate: 0 0;
+          scale: 1;
+        }
+        50% {
+          translate: 0 -18px;
+          scale: 1.03;
+        }
+      }
+
+      /* Hearts burst canvas */
+      canvas#burst {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        pointer-events: none;
+      }
+
+      /* Page layout */
+      .wrap {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        padding: 26px 14px 44px;
+        max-width: 920px;
+        margin: 0 auto;
+      }
+
+      /* Top header */
+      .top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 8px 4px 16px;
+      }
+      .sig {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .kicker {
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(18, 5, 19, 0.58);
+      }
+      h1 {
+        margin: 0;
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        line-height: 1.02;
+        font-size: 46px;
+      }
+      @media (min-width: 860px) {
+        h1 {
+          font-size: 64px;
+        }
+      }
+
+      .pink {
+        background: linear-gradient(135deg, var(--pink), var(--pink2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 18px 35px rgba(255, 47, 146, 0.18);
+      }
+
+      .stamp {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(255, 47, 146, 0.18);
+        box-shadow: var(--shadow2);
+        user-select: none;
+        white-space: nowrap;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--pink), var(--pink2));
+        box-shadow: 0 0 22px rgba(255, 47, 146, 0.3);
+      }
+      .stamp span {
+        font-weight: 800;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(18, 5, 19, 0.75);
+      }
+
+      /* Letter card */
+      .letter {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.88),
+          rgba(255, 255, 255, 0.7)
+        );
+        border: 1px solid rgba(255, 47, 146, 0.18);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+      .letter::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            900px 260px at 20% 0%,
+            rgba(255, 47, 146, 0.1),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 260px at 90% 30%,
+            rgba(255, 122, 195, 0.1),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 260px at 30% 110%,
+            rgba(255, 208, 232, 0.55),
+            transparent 60%
+          );
+        pointer-events: none;
+      }
+
+      .toolbar {
+        position: sticky;
+        top: 8px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 14px 14px 10px;
+        border-bottom: 1px solid rgba(255, 47, 146, 0.14);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.92),
+          rgba(255, 255, 255, 0.72)
+        );
+        backdrop-filter: blur(10px);
+      }
+      .toolbar .meta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .titleSmall {
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 12px;
+        color: rgba(18, 5, 19, 0.75);
+      }
+      .subtitle {
+        font-size: 13px;
+        color: rgba(18, 5, 19, 0.55);
+      }
+
+      .btn {
+        border: 0;
+        cursor: pointer;
+        padding: 12px 14px;
+        border-radius: 14px;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        background: linear-gradient(135deg, var(--pink), var(--pink2));
+        color: white;
+        box-shadow: 0 18px 40px rgba(255, 47, 146, 0.2);
+        transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease),
+          filter 0.18s var(--ease);
+        -webkit-tap-highlight-color: transparent;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        user-select: none;
+      }
+      .btn:active {
+        transform: scale(0.98);
+      }
+      .btn:hover {
+        box-shadow: 0 22px 55px rgba(255, 47, 146, 0.24);
+        filter: saturate(1.06);
+      }
+      .btn .heart {
+        display: inline-grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.18);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+      }
+
+      /* Sections inside letter */
+      .content {
+        position: relative;
+        z-index: 1;
+        padding: 6px 14px 18px;
+      }
+      .chunk {
+        padding: 14px 12px;
+        margin: 12px 0;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.62);
+        border: 1px solid rgba(255, 47, 146, 0.12);
+        box-shadow: 0 10px 26px rgba(18, 5, 19, 0.06);
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: rgba(255, 47, 146, 0.08);
+        border: 1px solid rgba(255, 47, 146, 0.14);
+        color: rgba(18, 5, 19, 0.72);
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 11px;
+        margin-bottom: 10px;
+      }
+      .tag .miniDot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--pink), var(--pink2));
+      }
+
+      .p {
+        margin: 0 0 12px;
+        line-height: 1.75;
+        font-size: 15px;
+        color: rgba(18, 5, 19, 0.78);
+      }
+      .p strong {
+        color: rgba(18, 5, 19, 0.92);
+      }
+      .p em {
+        color: rgba(18, 5, 19, 0.88);
+        font-style: normal;
+        font-weight: 700;
+      }
+
+      /* Small animated underline for some words */
+      .u {
+        position: relative;
+        font-weight: 800;
+        color: rgba(18, 5, 19, 0.94);
+      }
+      .u::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -3px;
+        height: 10px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 47, 146, 0.35),
+          rgba(255, 122, 195, 0.2)
+        );
+        border-radius: 999px;
+        transform: scaleX(0);
+        transform-origin: left;
+        animation: underline 1.1s var(--ease) forwards;
+      }
+      .chunk:nth-child(1) .u::after {
+        animation-delay: 0.1s;
+      }
+      .chunk:nth-child(2) .u::after {
+        animation-delay: 0.2s;
+      }
+      .chunk:nth-child(3) .u::after {
+        animation-delay: 0.3s;
+      }
+      .chunk:nth-child(4) .u::after {
+        animation-delay: 0.4s;
+      }
+      .chunk:nth-child(5) .u::after {
+        animation-delay: 0.5s;
+      }
+      @keyframes underline {
+        to {
+          transform: scaleX(1);
+        }
+      }
+
+      /* Footer note */
+      .foot {
+        margin-top: 14px;
+        text-align: center;
+        color: rgba(18, 5, 19, 0.52);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+      }
+
+      /* Smooth reveal on scroll */
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+      }
+      .reveal.on {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
   </head>
 
   <body>
-    <div class="bg">
-      <canvas id="hearts" aria-hidden="true"></canvas>
-      <div class="noise" aria-hidden="true"></div>
-      <div class="vignette" aria-hidden="true"></div>
+    <div class="ribbons" aria-hidden="true">
+      <div class="ribbon" style="left: -120px; top: 40px"></div>
+      <div class="ribbon r2"></div>
+      <div class="ribbon r3"></div>
     </div>
 
-    <header class="topbar">
-      <div class="brand">
-        <span class="dot" aria-hidden="true"></span>
-        <span class="brand__text">mini surprise</span>
+    <canvas id="burst" aria-hidden="true"></canvas>
+
+    <div class="wrap">
+      <div class="top">
+        <div class="sig">
+          <div class="kicker">Lettre d’anniversaire</div>
+          <h1>Pour <span class="pink">Lise</span></h1>
+        </div>
+        <div class="stamp">
+          <span class="dot" aria-hidden="true"></span>
+          <span>23 ans</span>
+        </div>
       </div>
-      <button
-        id="muteBtn"
-        class="chip"
-        type="button"
-        aria-label="Réduire les animations"
-      >
-        <span class="chip__icon" aria-hidden="true">✨</span>
-        <span class="chip__text">Animations</span>
-      </button>
-    </header>
 
-    <main class="wrap">
-      <!-- HERO -->
-      <section id="hero" class="screen active">
-        <div class="card glass">
-          <div class="badge">
-            <span class="badge__icon" aria-hidden="true">💌</span>
-            <span>juste 30 secondes</span>
+      <article class="letter" aria-label="Lettre pour Lise">
+        <div class="toolbar">
+          <div class="meta">
+            <div class="titleSmall">Une lettre — pas une déclaration</div>
+            <div class="subtitle">Juste l’éloge d’une fille rare, en rose.</div>
           </div>
-
-          <h1 class="h1">
-            Hey toi <span class="spark" aria-hidden="true">✦</span>
-          </h1>
-          <p class="p lead">
-            J’ai fait une mini page… juste pour te poser une question.
-          </p>
-
-          <div class="actions">
-            <button class="btn primary" id="openBtn" type="button">
-              Ouvrir la surprise
-              <span class="btn__icon" aria-hidden="true">→</span>
-            </button>
-            <p class="hint">(promis, c’est rapide)</p>
-          </div>
-        </div>
-
-        <div class="scrollhint" aria-hidden="true">
-          <span class="scrollhint__line"></span>
-          <span class="scrollhint__text">glisse</span>
-        </div>
-      </section>
-
-      <!-- LETTER -->
-      <section id="letter" class="screen">
-        <div class="card glass">
-          <h2 class="h2">Une petite attention</h2>
-          <p class="p subtle">Tape sur l’enveloppe.</p>
-
-          <div class="envelopeWrap" role="group" aria-label="Enveloppe">
-            <button
-              id="envelope"
-              class="envelope"
-              type="button"
-              aria-label="Ouvrir l'enveloppe"
-            >
-              <span class="env env--back" aria-hidden="true"></span>
-              <span class="env env--letter" aria-hidden="true">
-                <span class="letterContent">
-                  <span class="line"
-                    >Je voulais faire mieux qu’un “salut ça va”.</span
-                  >
-                  <span class="line"
-                    >Alors voilà : une petite attention simple.</span
-                  >
-                  <span class="line">Et une question.</span>
-                </span>
-              </span>
-              <span class="env env--front" aria-hidden="true"></span>
-              <span class="env env--seal" aria-hidden="true">♥</span>
-            </button>
-          </div>
-
-          <div class="actions">
-            <button class="btn primary" id="listenBtn" type="button" disabled>
-              Ok, je t’écoute
-              <span class="btn__icon" aria-hidden="true">→</span>
-            </button>
-            <button class="btn ghost" data-go="hero" type="button">
-              Retour
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- VIBE -->
-      <section id="vibe" class="screen">
-        <div class="card glass">
-          <h2 class="h2">Si on se voyait…</h2>
-          <p class="p lead">Tu choisirais quoi ?</p>
-
-          <div class="choices" role="radiogroup" aria-label="Choix de vibe">
-            <button
-              class="choice"
-              type="button"
-              data-vibe="cafe"
-              aria-pressed="false"
-            >
-              <span class="choice__icon" aria-hidden="true">☕</span>
-              <span class="choice__title">Café</span>
-              <span class="choice__sub">simple & vrai</span>
-            </button>
-
-            <button
-              class="choice"
-              type="button"
-              data-vibe="walk"
-              aria-pressed="false"
-            >
-              <span class="choice__icon" aria-hidden="true">🌙</span>
-              <span class="choice__title">Balade</span>
-              <span class="choice__sub">vibe de nuit</span>
-            </button>
-
-            <button
-              class="choice"
-              type="button"
-              data-vibe="dessert"
-              aria-pressed="false"
-            >
-              <span class="choice__icon" aria-hidden="true">🍰</span>
-              <span class="choice__title">Dessert</span>
-              <span class="choice__sub">l’option sourire</span>
-            </button>
-          </div>
-
-          <div class="reply" id="vibeReply" aria-live="polite">
-            <p class="p subtle">
-              Choisis une option pour voir la petite réponse 🙂
-            </p>
-          </div>
-
-          <div class="actions">
-            <button class="btn primary" id="chosenBtn" type="button" disabled>
-              J’ai choisi
-              <span class="btn__icon" aria-hidden="true">→</span>
-            </button>
-            <button class="btn ghost" data-go="letter" type="button">
-              Retour
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- INVITE -->
-      <section id="invite" class="screen">
-        <div class="card glass">
-          <h2 class="h2">Je te propose un moment simple</h2>
-
-          <div class="inviteBox">
-            <p class="p lead" id="inviteLine1">
-              Cette semaine, on fait: <strong>quelque chose de cool</strong>.
-            </p>
-            <p class="p" id="inviteLine2">
-              30–60 minutes. Juste nous. Sans prise de tête.
-            </p>
-          </div>
-
-          <div
-            class="timeChoices"
-            role="radiogroup"
-            aria-label="Choix du moment"
+          <button
+            id="heartsBtn"
+            class="btn"
+            type="button"
+            aria-label="Envoyer une pluie de coeurs"
           >
-            <button
-              class="pill"
-              type="button"
-              data-time="thisweek"
-              aria-pressed="false"
-            >
-              Cette semaine
-            </button>
-            <button
-              class="pill"
-              type="button"
-              data-time="weekend"
-              aria-pressed="false"
-            >
-              Week-end
-            </button>
-          </div>
-
-          <p class="p subtle noPressure">
-            Et si t’es pas dans le mood en ce moment : aucun souci 🙂
-          </p>
-
-          <div class="actions">
-            <button class="btn primary" id="goCtaBtn" type="button" disabled>
-              Continuer
-              <span class="btn__icon" aria-hidden="true">→</span>
-            </button>
-            <button class="btn ghost" data-go="vibe" type="button">
-              Retour
-            </button>
-          </div>
+            <span class="heart" aria-hidden="true">💗</span>
+            Envoyer des cœurs
+          </button>
         </div>
-      </section>
 
-      <!-- CTA -->
-      <section id="cta" class="screen">
-        <div class="card glass">
-          <h2 class="h2">Tu me dis quand t’es dispo ?</h2>
-          <p class="p lead" id="ctaSummary">
-            Je te laisse choisir. Zéro pression.
+        <div class="content">
+          <section class="chunk reveal">
+            <div class="tag">
+              <span class="miniDot" aria-hidden="true"></span> ouverture
+            </div>
+            <p class="p">
+              Lise, <strong>joyeux anniversaire</strong>. Aujourd’hui tu passes
+              un cap : <em>23 ans</em>. Et je voulais te l’écrire autrement,
+              avec une lettre qui respire le rose, ta couleur, ta signature —
+              comme si le monde avait décidé de devenir plus doux autour de toi.
+            </p>
+            <p class="p">
+              Ceci n’est pas une grande déclaration. C’est juste un constat : tu
+              as ce truc qui attire l’attention sans forcer. Une présence
+              <span class="u">propre</span>. Une énergie
+              <span class="u">classe</span>. Une beauté qui ne demande pas la
+              permission.
+            </p>
+          </section>
+
+          <section class="chunk reveal">
+            <div class="tag">
+              <span class="miniDot" aria-hidden="true"></span> beauté
+            </div>
+            <p class="p">
+              Ta beauté, ce n’est pas juste “jolie”. C’est
+              <strong>harmonieux</strong>. C’est le genre de beauté qui a du
+              rythme. Tes traits racontent quelque chose : la confiance, la
+              douceur, et ce petit feu tranquille qui dit “je sais qui je suis”.
+            </p>
+            <p class="p">
+              Et ce qui est fort chez toi, c’est que tu n’as pas besoin d’en
+              faire trop. Tu es belle même quand tu ne cherches pas à l’être.
+              Même dans la simplicité, tu gardes ce détail qui change tout.
+            </p>
+          </section>
+
+          <section class="chunk reveal">
+            <div class="tag">
+              <span class="miniDot" aria-hidden="true"></span> style
+            </div>
+            <p class="p">
+              Ton style… parlons-en. Tu as cette manière de porter les choses
+              comme si ça avait été créé pour toi. Pas “tendance”, pas “copié” —
+              <strong>toi</strong>. Tu peux être chic, street, minimaliste… et
+              dans tous les cas, ça te ressemble.
+            </p>
+            <p class="p">
+              C’est ça que j’aime : tu ne te déguises pas. Tu composes ton image
+              comme une œuvre — propre, nette, et toujours avec ce petit éclat
+              rose qui te suit.
+            </p>
+          </section>
+
+          <section class="chunk reveal">
+            <div class="tag">
+              <span class="miniDot" aria-hidden="true"></span> allure
+            </div>
+            <p class="p">
+              Et puis il y a ton allure. La façon dont tu marches, dont tu te
+              tiens, dont tu regardes… Ça donne l’impression que tu avances avec
+              une musique intérieure. Ce n’est pas “un corps”, c’est une
+              <strong>silhouette</strong> qui a de l’élégance.
+            </p>
+            <p class="p">
+              Tu sais ce que tu dégages ? Une féminité
+              <span class="u">fine</span>, maîtrisée, jamais vulgaire. Une
+              beauté qui reste digne, même quand elle est puissante.
+            </p>
+          </section>
+
+          <section class="chunk reveal">
+            <div class="tag">
+              <span class="miniDot" aria-hidden="true"></span> 23 ans
+            </div>
+            <p class="p">
+              23 ans, c’est un âge magnifique : assez jeune pour rêver grand,
+              assez mature pour choisir mieux. Je te souhaite une année où tu
+              seras encore plus toi : plus libre, plus respectée, plus
+              brillante.
+            </p>
+            <p class="p">
+              Que tout ce que tu touches devienne plus beau. Que tes projets
+              prennent forme. Et que tu n’oublies jamais : tu as déjà une
+              longueur d’avance — ton <strong>charme</strong> vient de
+              l’intérieur.
+            </p>
+          </section>
+
+          <p class="foot">
+            (Astuce : clique sur “Envoyer des cœurs” autant de fois que tu veux
+            💗)
           </p>
-
-          <div class="actions">
-            <a
-              class="btn primary"
-              id="whatsBtn"
-              href="#"
-              target="_blank"
-              rel="noopener"
-            >
-              Répondre (WhatsApp)
-              <span class="btn__icon" aria-hidden="true">↗</span>
-            </a>
-            <button class="btn ghost" id="notNowBtn" type="button">
-              Pas maintenant
-            </button>
-          </div>
-
-          <div class="thanks" id="thanks" hidden>
-            <p class="p lead">Merci d’avoir ouvert ✨</p>
-            <p class="p subtle">Bonne journée à toi 🙂</p>
-            <button class="btn ghost" data-go="hero" type="button">
-              Revenir au début
-            </button>
-          </div>
-
-          <p class="footerNote">— une vibe, un moment, c’est tout.</p>
         </div>
-      </section>
-    </main>
+      </article>
+    </div>
 
-    <script src="app.js"></script>
+    <script>
+      // ===== Reveal chunks on scroll =====
+      (function () {
+        const els = Array.from(document.querySelectorAll(".reveal"));
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) e.target.classList.add("on");
+            }
+          },
+          { threshold: 0.18 }
+        );
+        els.forEach((el) => io.observe(el));
+      })();
+
+      // ===== Hearts burst on click (only) =====
+      (function () {
+        const btn = document.getElementById("heartsBtn");
+        const canvas = document.getElementById("burst");
+        const ctx = canvas.getContext("2d", { alpha: true });
+
+        let W = 0,
+          H = 0,
+          DPR = 1;
+        function resize() {
+          DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+          W = window.innerWidth;
+          H = window.innerHeight;
+          canvas.width = Math.floor(W * DPR);
+          canvas.height = Math.floor(H * DPR);
+          canvas.style.width = W + "px";
+          canvas.style.height = H + "px";
+          ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+        }
+        window.addEventListener("resize", resize, { passive: true });
+        resize();
+
+        const hearts = [];
+        const rand = (a, b) => Math.random() * (b - a) + a;
+
+        function drawHeart(x, y, s, rot, a) {
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(rot);
+          ctx.globalAlpha = a;
+
+          const grad = ctx.createRadialGradient(
+            0,
+            -s * 0.25,
+            s * 0.2,
+            0,
+            0,
+            s * 1.3
+          );
+          grad.addColorStop(0, `rgba(255,47,146,${a})`);
+          grad.addColorStop(1, `rgba(255,122,195,${a * 0.18})`);
+          ctx.fillStyle = grad;
+
+          ctx.beginPath();
+          const top = -s * 0.3;
+          ctx.moveTo(0, top);
+          ctx.bezierCurveTo(
+            s * 0.62,
+            top - s * 0.78,
+            s * 1.35,
+            top + s * 0.42,
+            0,
+            s * 1.2
+          );
+          ctx.bezierCurveTo(
+            -s * 1.35,
+            top + s * 0.42,
+            -s * 0.62,
+            top - s * 0.78,
+            0,
+            top
+          );
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+
+        function burst(count = 42) {
+          const cx = W * 0.8; // near button area visually
+          const cy = 120;
+
+          for (let i = 0; i < count; i++) {
+            const s = rand(10, 24);
+            const angle = rand(-Math.PI, 0); // spray upward
+            const speed = rand(2.2, 5.6);
+
+            hearts.push({
+              x: cx + rand(-18, 18),
+              y: cy + rand(-10, 10),
+              vx: Math.cos(angle) * speed * rand(0.7, 1.2),
+              vy: Math.sin(angle) * speed * rand(0.7, 1.2),
+              g: rand(0.05, 0.11),
+              rot: rand(-1.2, 1.2),
+              vr: rand(-0.05, 0.05),
+              s,
+              a: rand(0.65, 0.95),
+              life: rand(900, 1400),
+            });
+          }
+
+          // tiny button "pop"
+          btn.animate(
+            [
+              { transform: "translateY(0) scale(1)" },
+              { transform: "translateY(-1px) scale(1.02)" },
+              { transform: "translateY(0) scale(1)" },
+            ],
+            { duration: 260, easing: "cubic-bezier(.2,.9,.2,1)" }
+          );
+        }
+
+        let last = performance.now();
+        function tick(now) {
+          const dt = Math.min(32, now - last);
+          last = now;
+
+          ctx.clearRect(0, 0, W, H);
+
+          for (let i = hearts.length - 1; i >= 0; i--) {
+            const h = hearts[i];
+            h.life -= dt;
+            h.vy += h.g * dt * 0.06;
+            h.x += h.vx * dt * 0.12;
+            h.y += h.vy * dt * 0.12;
+            h.rot += h.vr * dt * 0.02;
+
+            // fade
+            const a = h.a * Math.max(0, Math.min(1, h.life / 900));
+            drawHeart(h.x, h.y, h.s, h.rot, a);
+
+            if (h.life <= 0 || h.y > H + 80 || h.x < -120 || h.x > W + 120) {
+              hearts.splice(i, 1);
+            }
+          }
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+
+        btn.addEventListener("click", () => burst(56));
+      })();
+    </script>
   </body>
 </html>
